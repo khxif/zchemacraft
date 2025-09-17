@@ -1,0 +1,9 @@
+{
+  "name": "@zchemacraft/components",
+  "version": "1.0.0",
+  "main": "index.js",
+  "exports": {
+    "./ui*": "./src/ui/*.tsx",
+    "./core*": "./src/core/*.tsx"
+  }
+}
