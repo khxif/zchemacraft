@@ -72,7 +72,7 @@ export function UriModal({ isOpen, setIsOpen, schema, type = 'Mongoose' }: UriMo
                 )}
               />
               <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? <Spinner /> : ' Seed'}
+                {isPending ? <Spinner /> : 'Seed'}
               </Button>
             </form>
           </Form>
