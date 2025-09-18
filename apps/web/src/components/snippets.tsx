@@ -162,7 +162,7 @@ export const Snippets = () => {
 
           <SnippetCopyButton disabled={mockData.length === 0} value={toJsObjectString(mockData)} />
         </SnippetHeader>
-        <div className="p-4 h-full overflow-y-scroll scrollbar-hide">
+        <div className="p-4 min-h-80 h-full overflow-y-scroll scrollbar-hide">
           <Editor
             value={toJsObjectString(mockData)}
             onValueChange={() => {}}
