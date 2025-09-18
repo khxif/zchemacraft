@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 import { QueryProvider } from '../providers/query-provider';
 import './globals.css';
+import { BuyMeACoffee } from '../components/buy-me-a-coffee';
 
 export const metadata: Metadata = {
   title: 'Zchema Craft - Craft your schemas into mock data.',
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           {children}
+          <BuyMeACoffee />
           <Toaster position="bottom-right" richColors closeButton />
         </QueryProvider>
       </body>
