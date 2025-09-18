@@ -18,7 +18,10 @@ import {
   SnippetTabsTrigger,
 } from '@zchemacraft/components/ui/snippet';
 import { Spinner } from '@zchemacraft/components/ui/spinner';
+import { useGenerateMockData } from '@zchemacraft/hooks/mutations';
+import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
 import { toJsObjectString, transformSchemaInput } from '@zchemacraft/shared/utils';
+import { schemaInputSchema, SchemaInputType } from '@zchemacraft/zod-schemas/schema';
 import { DownloadIcon } from 'lucide-react';
 import 'prism-themes/themes/prism-night-owl.css';
 import Prism, { type Grammar } from 'prismjs';
@@ -27,15 +30,16 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SiMongodb, SiPrisma } from 'react-icons/si';
 import Editor from 'react-simple-code-editor';
-import { useGenerateMockData } from '@zchemacraft/hooks/mutations';
-import { schemaInputSchema, SchemaInputType } from '@zchemacraft/zod-schemas/schema';
 import { UriModal } from './uri-modal';
+import { MobileUriSlider } from './mobile-uri-slider';
 
 export const Snippets = () => {
   const [tab, setTab] = useState<string>(tabs[0]?.label ?? 'Mongoose');
   const [mockData, setMockData] = useState<Record<string, unknown>[]>([]);
   const [isUriModalOpen, setIsUriModalOpen] = useState<boolean>(false);
+
   const { mutateAsync, isPending } = useGenerateMockData();
+  const isMobile = useIsMobile();
 
   const form = useForm<SchemaInputType>({
     resolver: zodResolver(schemaInputSchema),
@@ -181,16 +185,29 @@ export const Snippets = () => {
           />
         </div>
       </Snippet>
-      <UriModal
-        type={tab}
-        isOpen={isUriModalOpen}
-        setIsOpen={setIsUriModalOpen}
-        schema={
-          tab === 'Mongoose'
-            ? transformSchemaInput(form.getValues('schema'))
-            : form.getValues('schema')
-        }
-      />
+      {isMobile ? (
+        <MobileUriSlider
+          type={tab}
+          isOpen={isUriModalOpen}
+          setIsOpen={setIsUriModalOpen}
+          schema={
+            tab === 'Mongoose'
+              ? transformSchemaInput(form.getValues('schema'))
+              : form.getValues('schema')
+          }
+        />
+      ) : (
+        <UriModal
+          type={tab}
+          isOpen={isUriModalOpen}
+          setIsOpen={setIsUriModalOpen}
+          schema={
+            tab === 'Mongoose'
+              ? transformSchemaInput(form.getValues('schema'))
+              : form.getValues('schema')
+          }
+        />
+      )}
     </section>
   );
 };
