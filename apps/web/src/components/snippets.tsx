@@ -242,15 +242,6 @@ const tabs: Tab[] = [
   id     Int     @id @default(autoincrement())
   name   String
   email  String  @unique
-  posts  Post[]
-}
-
-model Post {
-  id       Int    @id @default(autoincrement())
-  title    String
-  content  String?
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId Int
 }`,
   },
   // {

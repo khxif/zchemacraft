@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from '@zchemacraft/components/ui/form';
 import { Input } from '@zchemacraft/components/ui/input';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@zchemacraft/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle } from '@zchemacraft/components/ui/sheet';
 import { Spinner } from '@zchemacraft/components/ui/spinner';
 import { useSeedMockData } from '@zchemacraft/hooks/mutations';
 import { uriSchema, UriSchemaType } from '@zchemacraft/zod-schemas/schema';
@@ -51,7 +51,7 @@ export function MobileUriSlider({
   }
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent side="bottom" className="p-5">
+      <SheetContent side="bottom" className="p-5 rounded-t-3xl">
         <SheetTitle>Enter the Database URI.</SheetTitle>
 
         <div>
