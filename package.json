@@ -19,6 +19,7 @@
     "@zchemacraft/components": "workspace:*",
     "@zchemacraft/data-accessors": "workspace:*",
     "@zchemacraft/hooks": "workspace:*",
+    "@zchemacraft/layouts": "workspace:*",
     "@zchemacraft/stores": "workspace:*",
     "@zchemacraft/shared": "workspace:*",
     "@zchemacraft/types": "workspace:*",

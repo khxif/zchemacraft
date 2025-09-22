@@ -1,15 +1,16 @@
 'use client';
 
 import { apiClient } from '@zchemacraft/data-accessors/apiClient';
+import { useGoogleSignInMutation } from '@zchemacraft/hooks/mutations';
+import { useAuthStore } from '@zchemacraft/stores/auth-store';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import dynamic from 'next/dynamic';
 import { SiDrizzle, SiMongodb, SiPrisma } from 'react-icons/si';
 import { auth } from '../firebase/config';
-import { useGoogleSignInMutation } from '@zchemacraft/hooks/mutations';
-import { tokenStore } from '@zchemacraft/stores/token-store';
-import { useAuthStore } from '@zchemacraft/stores/auth-store';
 
-const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets));
+const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets), {
+  ssr: false,
+});
 
 export default function Home() {
   const authenticate = useAuthStore(state => state.authenticate);
@@ -24,7 +25,6 @@ export default function Home() {
     apiClient.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
 
     const data = await mutateAsync();
-    console.log(data);
     authenticate(data.user, data.token);
   }
 
