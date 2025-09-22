@@ -1,11 +1,32 @@
+'use client';
+
+import { apiClient } from '@zchemacraft/data-accessors/apiClient';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import dynamic from 'next/dynamic';
 import { SiDrizzle, SiMongodb, SiPrisma } from 'react-icons/si';
+import { auth } from '../firebase/config';
+import { useGoogleSignInMutation } from '@zchemacraft/hooks/mutations';
 
 const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets));
 
 export default function Home() {
+  const { mutateAsync } = useGoogleSignInMutation();
+
+  async function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+
+    const result = await signInWithPopup(auth, provider);
+    const idToken = await result.user.getIdToken();
+
+    apiClient.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
+
+    const data = await mutateAsync();
+    console.log(data);
+  }
+
   return (
     <main className="pb-10">
+      {/* <button onClick={signInWithGoogle}>Login</button> */}
       <div className="font-sans">
         <div className="bg-gray-50 dark:bg-black py-8 sm:py-12 px-4 transition-colors duration-300">
           <div className="max-w-7xl mx-auto">
