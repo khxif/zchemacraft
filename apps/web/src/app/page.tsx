@@ -6,10 +6,13 @@ import dynamic from 'next/dynamic';
 import { SiDrizzle, SiMongodb, SiPrisma } from 'react-icons/si';
 import { auth } from '../firebase/config';
 import { useGoogleSignInMutation } from '@zchemacraft/hooks/mutations';
+import { tokenStore } from '@zchemacraft/stores/token-store';
+import { useAuthStore } from '@zchemacraft/stores/auth-store';
 
 const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets));
 
 export default function Home() {
+  const authenticate = useAuthStore(state => state.authenticate);
   const { mutateAsync } = useGoogleSignInMutation();
 
   async function signInWithGoogle() {
@@ -22,11 +25,12 @@ export default function Home() {
 
     const data = await mutateAsync();
     console.log(data);
+    authenticate(data.user, data.token);
   }
 
   return (
     <main className="pb-10">
-      {/* <button onClick={signInWithGoogle}>Login</button> */}
+      <button onClick={signInWithGoogle}>Login</button>
       <div className="font-sans">
         <div className="bg-gray-50 dark:bg-black py-8 sm:py-12 px-4 transition-colors duration-300">
           <div className="max-w-7xl mx-auto">

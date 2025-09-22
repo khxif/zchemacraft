@@ -19,11 +19,14 @@
     "@zchemacraft/components": "workspace:*",
     "@zchemacraft/data-accessors": "workspace:*",
     "@zchemacraft/hooks": "workspace:*",
+    "@zchemacraft/stores": "workspace:*",
     "@zchemacraft/shared": "workspace:*",
+    "@zchemacraft/types": "workspace:*",
     "@zchemacraft/zod-schemas": "workspace:*",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.2",
     "firebase": "^12.3.0",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
@@ -39,7 +42,8 @@
     "tailwind-merge": "^3.3.1",
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss": "^4.1.13",
-    "zod": "^4.1.5"
+    "zod": "^4.1.5",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
