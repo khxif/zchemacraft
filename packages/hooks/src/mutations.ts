@@ -10,6 +10,6 @@ export function useSeedMockData() {
   return useMutation({ mutationFn: seedMockData });
 }
 
-export const useGoogleSignInMutation = () => {
+export function useGoogleSignInMutation() {
   return useMutation({ mutationFn: googleSignIn });
-};
+}

@@ -1,36 +1,11 @@
-'use client';
-
-import { apiClient } from '@zchemacraft/data-accessors/apiClient';
-import { useGoogleSignInMutation } from '@zchemacraft/hooks/mutations';
-import { useAuthStore } from '@zchemacraft/stores/auth-store';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import dynamic from 'next/dynamic';
 import { SiDrizzle, SiMongodb, SiPrisma } from 'react-icons/si';
-import { auth } from '../firebase/config';
 
-const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets), {
-  ssr: false,
-});
+const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets));
 
 export default function Home() {
-  const authenticate = useAuthStore(state => state.authenticate);
-  const { mutateAsync } = useGoogleSignInMutation();
-
-  async function signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-
-    const result = await signInWithPopup(auth, provider);
-    const idToken = await result.user.getIdToken();
-
-    apiClient.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
-
-    const data = await mutateAsync();
-    authenticate(data.user, data.token);
-  }
-
   return (
     <main className="pb-10">
-      <button onClick={signInWithGoogle}>Login</button>
       <div className="font-sans">
         <div className="bg-gray-50 dark:bg-black py-8 sm:py-12 px-4 transition-colors duration-300">
           <div className="max-w-7xl mx-auto">
@@ -73,7 +48,12 @@ export default function Home() {
 
       <p className="text-muted-foreground text-sm text-center font-medium mt-10">
         Developed by{' '}
-        <a href="https://khaif.is-a.dev" target="_blank" className="underline">
+        <a
+          href="https://khaif.is-a.dev"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="underline"
+        >
           Khaif
         </a>
       </p>
