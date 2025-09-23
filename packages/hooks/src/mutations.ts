@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { generateMockData, seedMockData } from '@zchemacraft/data-accessors/mock-data';
 import { googleSignIn } from '@zchemacraft/data-accessors/auth';
+import { createMockAPI } from '@zchemacraft/data-accessors/mock-api';
+import { generateMockData, seedMockData } from '@zchemacraft/data-accessors/mock-data';
 
 export function useGenerateMockData() {
   return useMutation({ mutationFn: generateMockData });
@@ -12,4 +13,8 @@ export function useSeedMockData() {
 
 export function useGoogleSignInMutation() {
   return useMutation({ mutationFn: googleSignIn });
+}
+
+export function useCreateMockAPIMutation() {
+  return useMutation({ mutationFn: createMockAPI });
 }
