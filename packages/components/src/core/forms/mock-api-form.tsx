@@ -19,8 +19,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Tabs, TabsList, TabsTrigger } from '../../ui/tabs';
 import { Spinner } from '../../ui/spinner';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function MockAPIForm() {
+  const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useCreateMockAPIMutation();
 
   const form = useForm<MockAPISchemaType>({
@@ -35,6 +37,8 @@ export function MockAPIForm() {
   async function onSubmit(values: MockAPISchemaType) {
     try {
       const data = await mutateAsync(values);
+      form.reset();
+      queryClient.invalidateQueries({ queryKey: ['mock-apis'] });
       toast.success(data?.message || 'Mock API created successfully');
     } catch (error) {
       console.error(error);

@@ -6,3 +6,13 @@ export interface User {
   role: 'admin' | 'user';
   authProviderId: string;
 }
+
+export interface MockAPI {
+  id: number;
+  path: string;
+  schema: string;
+  schemaType: 'json' | 'mongoose';
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
