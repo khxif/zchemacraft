@@ -19,6 +19,7 @@ export const useBaseLayoutStore = create<BaseLayoutStore>()(set => ({
       }
 
       const user = await getAuthMe();
+      console.log(user);
       if (!user || !user.id) {
         set({ isAppInitialized: true });
         return null;

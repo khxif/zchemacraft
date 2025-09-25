@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { createApiKey } from '@zchemacraft/data-accessors/api-keys';
 import { googleSignIn } from '@zchemacraft/data-accessors/auth';
 import { createMockAPI, deleteMockAPI } from '@zchemacraft/data-accessors/mock-api';
 import { generateMockData, seedMockData } from '@zchemacraft/data-accessors/mock-data';
@@ -22,3 +23,7 @@ export function useCreateMockAPIMutation() {
 export function useDeleteMockAPIMutation() {
   return useMutation({ mutationFn: deleteMockAPI });
 }
+
+export const useCreateApiKeyMutation = () => {
+  return useMutation({ mutationFn: createApiKey });
+};

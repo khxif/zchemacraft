@@ -33,7 +33,7 @@ export default function MockAPI() {
   };
 
   return (
-    <main className="py-4 px-10">
+    <main className="py-4 px-10 w-full flex-1">
       <Button onClick={() => setIsModalOpen(true)}>Create API</Button>
 
       <div className="flex flex-col gap-4 mt-6">

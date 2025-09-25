@@ -13,5 +13,5 @@ export const googleSignIn = async ({ firebaseToken }: { firebaseToken: string })
 
 export const getAuthMe = async () => {
   const { data } = await apiClient.get('/api/auth/me');
-  return data;
+  return data.data;
 };
