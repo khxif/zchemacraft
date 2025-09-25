@@ -16,3 +16,12 @@ export interface MockAPI {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface APIKey {
+  id: number;
+  name: string;
+  key: string;
+  userId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
