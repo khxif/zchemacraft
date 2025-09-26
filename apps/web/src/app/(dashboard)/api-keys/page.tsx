@@ -27,18 +27,25 @@ export default function ApiKeys() {
   };
 
   return (
-    <div className="p-4">
-      <Button onClick={() => setAPIKeyModalOpen(true)}>Create New API Key</Button>
-      {data?.map((apikey: APIKey) => (
-        <div key={apikey.id} className="my-2 p-4 border border-gray-300 rounded">
-          <p>
-            {apikey.name} - {apikey.key}
-          </p>
-          <Button onClick={() => handleApiKeyDelete(apikey.id)}>Delete</Button>
-        </div>
-      ))}
+    <main className="py-4 px-4 w-full flex-1 md:px-10">
+      <nav className="flex items-center justify-between">
+        <h1 className="text-xl font-medium md:text-2xl">API Keys</h1>
+
+        <Button onClick={() => setAPIKeyModalOpen(true)}>Create API</Button>
+      </nav>
+
+      <div className='mt-8'>
+        {data?.map((apikey: APIKey) => (
+          <div key={apikey.id} className="my-2 p-4 border border-gray-300 rounded">
+            <p>
+              {apikey.name} - {apikey.key}
+            </p>
+            <Button onClick={() => handleApiKeyDelete(apikey.id)}>Delete</Button>
+          </div>
+        ))}
+      </div>
 
       <APIKeyModal open={isAPIKeyModalOpen} setOpen={setAPIKeyModalOpen} />
-    </div>
+    </main>
   );
 }
