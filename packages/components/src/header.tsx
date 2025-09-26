@@ -1,10 +1,16 @@
 import Link from 'next/link';
+import { Badge } from './ui/badge';
 
 export function Header() {
   return (
-    <header className=" py-4 px-4 sm:px-8 md:px-16 bg-black w-full">
-      <nav className=" mx-auto flex items-center justify-between">
-        <h1 className="font-medium text-xl md:text-2xl">Zchemacraft.</h1>
+    <header className="py-4 px-4 sm:px-8 md:px-16 bg-black w-full">
+      <nav className="mx-auto flex items-center justify-between">
+        <span className="flex space-x-2">
+          <h1 className="font-medium text-xl md:text-2xl">Zchemacraft.</h1>
+          <Badge className="bg-purple-900/50 text-xs px-2 text-purple-300 flex items-center rounded-full">
+            beta
+          </Badge>
+        </span>
 
         <Link href="/mock-api">
           <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6  text-white inline-block">
