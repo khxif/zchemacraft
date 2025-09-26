@@ -1,7 +1,5 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@zchemacraft/components/ui/button';
 import { DialogClose, DialogFooter } from '@zchemacraft/components/ui/dialog';
 import {
@@ -13,38 +11,18 @@ import {
   FormMessage,
 } from '@zchemacraft/components/ui/form';
 import { Input } from '@zchemacraft/components/ui/input';
-import { useCreateApiKeyMutation } from '@zchemacraft/hooks/mutations';
-import { apiKeySchema, ApiKeySchemaType } from '@zchemacraft/zod-schemas/api-key';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { ApiKeySchemaType } from '@zchemacraft/zod-schemas/api-key';
+import { UseFormReturn } from 'react-hook-form';
 import { Spinner } from '../../ui/spinner';
-import { useState } from 'react';
 
-export function APIKeyForm() {
-  const [apiKey, setApiKey] = useState<string>('');
+interface APIKeyFormProps {
+  form: UseFormReturn<ApiKeySchemaType>;
+  onSubmit: (values: ApiKeySchemaType) => Promise<void>;
+  isPending: boolean;
+}
 
-  const queryClient = useQueryClient();
-  const { mutateAsync, isPending } = useCreateApiKeyMutation();
-
-  const form = useForm<ApiKeySchemaType>({
-    resolver: zodResolver(apiKeySchema),
-    defaultValues: {
-      name: '',
-    },
-  });
-
-  async function onSubmit(values: ApiKeySchemaType) {
-    try {
-      const data = await mutateAsync(values);
-      form.reset();
-      queryClient.invalidateQueries({ queryKey: ['api-keys'] });
-      setApiKey(data?.data);
-      toast.success(data?.message || 'Mock API created successfully');
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  return !apiKey ? (
+export function APIKeyForm({ form, onSubmit, isPending }: APIKeyFormProps) {
+  return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-6">
@@ -54,9 +32,9 @@ export function APIKeyForm() {
             disabled={isPending}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>API Name</FormLabel>
+                <FormLabel>API Key Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="/api/users" {...field} />
+                  <Input placeholder="Test Key" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -71,12 +49,10 @@ export function APIKeyForm() {
             </Button>
           </DialogClose>
           <Button type="submit" disabled={isPending}>
-            {isPending ? <Spinner /> : 'Save changes'}
+            {isPending ? <Spinner /> : 'Create Key'}
           </Button>
         </DialogFooter>
       </form>
     </Form>
-  ) : (
-    <Input readOnly value={apiKey} />
   );
 }
