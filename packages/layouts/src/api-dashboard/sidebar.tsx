@@ -13,9 +13,9 @@ export function APIDashboardSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex space-x-4 items-center">
-          <Image src="/logo2.png" alt="Logo" width={100} height={150} className="w-10 h-10" />
-          <h2 className="font-medium text-lg">Zchemacraft</h2>
+        <div className="flex space-x-4 items-center py-2">
+          {/* <Image src="/logo2.png" alt="Logo" width={100} height={150} className="w-10 h-10" /> */}
+          <h2 className="font-medium text-lg">Zchemacraft.</h2>
         </div>
       </SidebarHeader>
       <SidebarContent className="flex flex-col space-y- pt-12">

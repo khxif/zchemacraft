@@ -8,7 +8,6 @@ import { APIDashboardSidebar } from './sidebar';
 
 export function APIDashboardLayout({ children }: { children: React.ReactNode }) {
   const user = useAuthStore(state => state.user);
-  console.log(user)
 
   return (
     <SidebarProvider>

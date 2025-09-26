@@ -35,7 +35,7 @@ export default function ApiKeys() {
       <nav className="flex items-center justify-between">
         <h1 className="text-xl font-medium md:text-2xl">API Keys</h1>
 
-        <Button onClick={() => setAPIKeyModalOpen(true)}>Create API</Button>
+        <Button onClick={() => setAPIKeyModalOpen(true)}>Create API Key</Button>
       </nav>
 
       {!isLoading ? (
