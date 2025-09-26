@@ -7,6 +7,6 @@
       }
     ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts", "../../packages/components/src/core/mobile-sliders/mobile-uri-slider.tsx", "../../packages/components/src/core/modals/uri-modal.tsx"],
   "exclude": ["node_modules"]
 }

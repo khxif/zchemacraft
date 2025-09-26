@@ -1,8 +1,8 @@
 {
-  "name": "@zchemacraft/data-accessors",
+  "name": "@zchemacraft/types",
   "version": "1.0.0",
   "main": "index.js",
   "exports": {
-    "./*": "./src/*.ts"
+    ".": "./src/index.ts"
   }
 }

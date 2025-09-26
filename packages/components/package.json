@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "exports": {
+    "./*": "./src/*.tsx",
     "./ui*": "./src/ui/*.tsx",
     "./core*": "./src/core/*.tsx"
   }

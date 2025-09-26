@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { SiDrizzle, SiMongodb, SiPrisma } from 'react-icons/si';
 
-const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets));
+const Snippets = dynamic(() => import('@zchemacraft/components/core/snippets').then(mod => mod.Snippets));
 
 export default function Home() {
   return (
@@ -48,7 +48,12 @@ export default function Home() {
 
       <p className="text-muted-foreground text-sm text-center font-medium mt-10">
         Developed by{' '}
-        <a href="https://khaif.is-a.dev" target="_blank" className="underline">
+        <a
+          href="https://khaif.is-a.dev"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="underline"
+        >
           Khaif
         </a>
       </p>

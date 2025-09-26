@@ -1,5 +1,5 @@
 {
-  "name": "@zchemacraft/data-accessors",
+  "name": "@zchemacraft/stores",
   "version": "1.0.0",
   "main": "index.js",
   "exports": {
