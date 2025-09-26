@@ -1,5 +1,6 @@
 'use client';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@zchemacraft/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,24 +9,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@zchemacraft/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@zchemacraft/components/ui/avatar';
+import { User } from '@zchemacraft/types';
 
-export function UserButton() {
+export function UserButton({ user }: { user: User }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar className="size-10">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={user.profilePicture ?? ''} />
+          <AvatarFallback>{user.name ? user.name.charAt(0).toUpperCase() : 'U'}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

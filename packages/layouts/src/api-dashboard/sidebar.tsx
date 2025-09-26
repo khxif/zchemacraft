@@ -1,21 +1,20 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@zchemacraft/components/ui/sidebar';
-import Link from 'next/link';
-import Image from 'next/image';
 import { GitPullRequestDraftIcon, KeyRoundIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export function APIDashboardSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
         <div className="flex space-x-4 items-center">
-          <Image src="/logo2.png" alt="Logo" width={100} height={150} className="w-12 h-10" />
+          <Image src="/logo2.png" alt="Logo" width={100} height={150} className="w-10 h-10" />
           <h2 className="font-medium text-lg">Zchemacraft</h2>
         </div>
       </SidebarHeader>
@@ -37,7 +36,6 @@ export function APIDashboardSidebar() {
           </Link>
         </SidebarMenuItem>
       </SidebarContent>
-      <SidebarFooter>footer</SidebarFooter>
     </Sidebar>
   );
 }
