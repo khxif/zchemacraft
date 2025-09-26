@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { SiDrizzle, SiMongodb, SiPrisma } from 'react-icons/si';
 
-const Snippets = dynamic(() => import('../components/snippets').then(mod => mod.Snippets));
+const Snippets = dynamic(() => import('@zchemacraft/components/core/snippets').then(mod => mod.Snippets));
 
 export default function Home() {
   return (

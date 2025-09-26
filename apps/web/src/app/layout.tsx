@@ -1,7 +1,7 @@
 import { BaseLayout } from '@zchemacraft/layouts/base-layout';
+import { QueryProvider } from '@zchemacraft/providers/query-provider';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
-import { QueryProvider } from '../providers/query-provider';
 import './globals.css';
 
 export const metadata: Metadata = {

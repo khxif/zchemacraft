@@ -30,8 +30,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SiMongodb, SiPrisma } from 'react-icons/si';
 import Editor from 'react-simple-code-editor';
-import { UriModal } from './uri-modal';
-import { MobileUriSlider } from './mobile-uri-slider';
+import { MobileUriSlider } from './mobile-sliders/mobile-uri-slider';
+import { UriModal } from './modals/uri-modal';
 
 export const Snippets = () => {
   const [tab, setTab] = useState<string>(tabs[0]?.label ?? 'Mongoose');
