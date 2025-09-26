@@ -2,12 +2,30 @@ import { BaseLayout } from '@zchemacraft/layouts/base-layout';
 import { QueryProvider } from '@zchemacraft/providers/query-provider';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
+import { keywords } from '../lib/keywords';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Zchema Craft - Craft your schemas into mock data.',
   description:
-    'Generate realistic mock data from Mongoose, Prisma, or Drizzle schemas effortlessly.',
+    'Zchema Craft helps developers instantly convert schemas (Mongoose, Prisma, Drizzle) into realistic mock data. Easily seed your database, generate mock APIs, and accelerate development with schema-driven testing tools.',
+  openGraph: {
+    title: 'Zchema Craft - Craft your schemas into mock data.',
+    description:
+      'Zchema Craft helps developers instantly convert schemas (Mongoose, Prisma, Drizzle) into realistic mock data. Easily seed your database, generate mock APIs, and accelerate development with schema-driven testing tools.',
+    url: 'https://zchemacraft.com',
+    siteName: 'Zchema Craft',
+    images: [
+      {
+        url: '/logo2.png',
+        width: 1200,
+        height: 630,
+        alt: 'Website Preview',
+      },
+    ],
+    type: 'website',
+  },
+  keywords: keywords,
 };
 
 export default function RootLayout({
