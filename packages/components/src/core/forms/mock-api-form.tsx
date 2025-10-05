@@ -58,7 +58,9 @@ export function MockAPIForm() {
                   <Tabs onValueChange={field.onChange} value={field.value} className="w-full">
                     <TabsList>
                       <TabsTrigger value="json">JSON</TabsTrigger>
-                      <TabsTrigger value="mongoose" disabled>Mongoose</TabsTrigger>
+                      <TabsTrigger value="mongoose" disabled>
+                        Mongoose
+                      </TabsTrigger>
                       <TabsTrigger value="prisma" disabled>
                         Coming Soon..
                       </TabsTrigger>
@@ -93,7 +95,15 @@ export function MockAPIForm() {
               <FormItem>
                 <FormLabel>Schema</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Schema" {...field} />
+                  <Textarea
+                    placeholder={`{
+    "name": {
+      "type": "string",
+      "minLength": 1
+    }
+  },`}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
