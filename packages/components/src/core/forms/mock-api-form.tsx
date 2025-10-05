@@ -58,7 +58,7 @@ export function MockAPIForm() {
                   <Tabs onValueChange={field.onChange} value={field.value} className="w-full">
                     <TabsList>
                       <TabsTrigger value="json">JSON</TabsTrigger>
-                      <TabsTrigger value="mongoose">Mongoose</TabsTrigger>
+                      <TabsTrigger value="mongoose" disabled>Mongoose</TabsTrigger>
                       <TabsTrigger value="prisma" disabled>
                         Coming Soon..
                       </TabsTrigger>
