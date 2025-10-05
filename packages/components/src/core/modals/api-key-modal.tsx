@@ -11,7 +11,7 @@ import {
 } from '@zchemacraft/components/ui/dialog';
 import { useCreateApiKeyMutation } from '@zchemacraft/hooks/mutations';
 import { apiKeySchema, ApiKeySchemaType } from '@zchemacraft/zod-schemas/api-key';
-import { CopyIcon } from 'lucide-react';
+import { CheckIcon, CopyIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -26,6 +26,7 @@ interface APIKeyModalProps {
 
 export function APIKeyModal({ open, setOpen }: APIKeyModalProps) {
   const [apiKey, setApiKey] = useState<string>('');
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useCreateApiKeyMutation();
@@ -48,6 +49,11 @@ export function APIKeyModal({ open, setOpen }: APIKeyModalProps) {
       console.error(error);
     }
   }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(apiKey);
+    setIsCopied(true);
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
@@ -66,9 +72,15 @@ export function APIKeyModal({ open, setOpen }: APIKeyModalProps) {
         ) : (
           <div className="flex items-center space-x-3">
             <Input readOnly value={apiKey} />
-            <Button onClick={() => navigator.clipboard.writeText(apiKey)}>
-              <CopyIcon className="h-4 w-4" />
-            </Button>
+            {!isCopied ? (
+              <Button onClick={handleCopy} variant='ghost'>
+                <CopyIcon className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button  variant='ghost'>
+                <CheckIcon className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         )}
       </DialogContent>
