@@ -11,7 +11,7 @@ export async function createApiKey(body: ApiKeySchemaType) {
   return data;
 }
 
-export async function deleteApiKey(id: number) {
+export async function deleteApiKey(id: string) {
   const { data } = await apiClient.delete(`/api/api-keys/${id}`);
   return data;
 }

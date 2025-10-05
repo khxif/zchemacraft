@@ -20,7 +20,7 @@ export default function ApiKeys() {
   const { mutateAsync, isPending } = useDeleteApiKeyMutation();
   const queryClient = useQueryClient();
 
-  const handleApiKeyDelete = async (id: number) => {
+  const handleApiKeyDelete = async (id: string) => {
     try {
       const data = await mutateAsync(id);
       queryClient.invalidateQueries({ queryKey: ['api-keys'] });
@@ -38,7 +38,7 @@ export default function ApiKeys() {
         <Button onClick={() => setAPIKeyModalOpen(true)}>Create API Key</Button>
       </nav>
 
-      {!isLoading ? (
+      {!isLoading && data ? (
         <APIKeysTable columns={getColumns(handleApiKeyDelete, isPending)} data={data} />
       ) : (
         <div className="flex justify-center items-center h-32">
@@ -51,7 +51,7 @@ export default function ApiKeys() {
   );
 }
 
-function getColumns(handleApiKeyDelete: (id: number) => void, isPending: boolean) {
+function getColumns(handleApiKeyDelete: (id: string) => void, isPending: boolean) {
   const columns: ColumnDef<APIKey>[] = [
     {
       accessorKey: 'name',

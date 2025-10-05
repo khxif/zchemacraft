@@ -31,7 +31,7 @@ export default function MockAPI() {
 
   const { mutateAsync: deleteMockAPI, isPending } = useDeleteMockAPIMutation();
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
       const data = await deleteMockAPI(id);
       queryClient.invalidateQueries({ queryKey: ['mock-apis'] });

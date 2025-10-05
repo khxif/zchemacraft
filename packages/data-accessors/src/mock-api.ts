@@ -11,7 +11,7 @@ export const createMockAPI = async (body: MockAPISchemaType) => {
   return data;
 };
 
-export const deleteMockAPI = async (id: number) => {
+export const deleteMockAPI = async (id: string) => {
   const { data } = await apiClient.delete(`/api/mock-api/${id}`);
   return data;
 };

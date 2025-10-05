@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
   profilePicture: string;
@@ -9,20 +9,20 @@ export interface User {
 }
 
 export interface MockAPI {
-  id: number;
+  id: string;
   path: string;
   schema: string;
   schemaType: 'json' | 'mongoose';
-  userId: number;
+  userId: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface APIKey {
-  id: number;
+  id: string;
   name: string;
   key: string;
-  userId: number;
+  userId: string;
   createdAt: Date;
   updatedAt: Date;
 }
