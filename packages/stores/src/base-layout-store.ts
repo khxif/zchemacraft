@@ -29,8 +29,8 @@ export const useBaseLayoutStore = create<BaseLayoutStore>()(set => ({
 
       return user;
     } catch (error) {
-      set({ isAppInitialized: true });
       tokenStore.removeToken();
+      set({ isAppInitialized: true });
       return null;
     }
   },
