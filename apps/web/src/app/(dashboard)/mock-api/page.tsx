@@ -63,13 +63,13 @@ export default function MockAPI() {
                     onClick={e => {
                       e.stopPropagation();
                       navigator.clipboard.writeText(
-                        `${process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/${(user as User)?.id}/${api.path}`,
+                        `${process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/${(user as User)?.id}${api.path}`,
                       );
                       toast.success('Copied to clipboard');
                     }}
                   >
                     <p className="font-medium">
-                      {process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/{(user as User)?.id}/{api.path}
+                      {process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/{(user as User)?.id}{api.path}
                     </p>
                     <ExternalLinkIcon className="size-3" />
                   </span>
