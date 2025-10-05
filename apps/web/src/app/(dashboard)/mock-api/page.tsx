@@ -15,7 +15,8 @@ import { Spinner } from '@zchemacraft/components/uispinner';
 import { useDeleteMockAPIMutation } from '@zchemacraft/hooks/mutations';
 import { useGetMockAPIs } from '@zchemacraft/hooks/queries';
 import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
-import { type MockAPI } from '@zchemacraft/types';
+import { useAuthStore } from '@zchemacraft/stores/auth-store';
+import { User, type MockAPI } from '@zchemacraft/types';
 import { ExternalLinkIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -23,6 +24,7 @@ import { toast } from 'sonner';
 export default function MockAPI() {
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
+  const user = useAuthStore(state => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading } = useGetMockAPIs();
@@ -61,14 +63,13 @@ export default function MockAPI() {
                     onClick={e => {
                       e.stopPropagation();
                       navigator.clipboard.writeText(
-                        `${process.env.NEXT_PUBLIC_PUBLIC_API_URL}${api.path}`,
+                        `${process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/${(user as User)?.id}/${api.path}`,
                       );
                       toast.success('Copied to clipboard');
                     }}
                   >
                     <p className="font-medium">
-                      {process.env.NEXT_PUBLIC_PUBLIC_API_URL}
-                      {api.path}
+                      {process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/{(user as User)?.id}/{api.path}
                     </p>
                     <ExternalLinkIcon className="size-3" />
                   </span>
