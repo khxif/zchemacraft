@@ -29,7 +29,7 @@ export default function MockAPI() {
 
   const [isCreateAPIModalOpen, setIsCreateAPIModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const[apiToDelete, setApiToDelete] = useState<string >('');
+  const [apiToDelete, setApiToDelete] = useState<string>('');
 
   const { data, isLoading } = useGetMockAPIs();
   const { mutateAsync: deleteMockAPI, isPending } = useDeleteMockAPIMutation();
@@ -41,7 +41,7 @@ export default function MockAPI() {
       toast.success(data?.message);
     } catch (error) {
       console.log(error);
-    }finally {
+    } finally {
       setIsConfirmModalOpen(false);
     }
   };
@@ -74,7 +74,8 @@ export default function MockAPI() {
                     }}
                   >
                     <p className="font-medium">
-                      {process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/mock-data/{(user as User)?.id}{api.path}
+                      {process.env.NEXT_PUBLIC_PUBLIC_API_URL}/api/mock-data/{(user as User)?.id}
+                      {api.path}
                     </p>
                     <ExternalLinkIcon className="size-3" />
                   </span>
@@ -108,8 +109,8 @@ export default function MockAPI() {
                     size="sm"
                     variant="destructive"
                     onClick={() => {
-                      setApiToDelete(api.id)
-                      setIsConfirmModalOpen(true)
+                      setApiToDelete(api.id);
+                      setIsConfirmModalOpen(true);
                     }}
                     disabled={isPending}
                   >
@@ -123,6 +124,12 @@ export default function MockAPI() {
       ) : (
         <Spinner className="mx-auto mt-20" />
       )}
+
+      {!isLoading && !data?.length ? (
+        <div className="text-center pt-10">
+          <h4>No Mock APIs found, create one now!</h4>
+        </div>
+      ) : null}
 
       {isMobile ? (
         <MockAPISlider open={isCreateAPIModalOpen} setOpen={setIsCreateAPIModalOpen} />
