@@ -3,6 +3,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { type ColumnDef } from '@tanstack/react-table';
 import { APIKeyModal } from '@zchemacraft/components/core/modals/api-key-modal';
+import { ConfirmationModal } from '@zchemacraft/components/core/modals/confirmation-modal';
 import { APIKeysTable } from '@zchemacraft/components/core/tables/api-keys-table';
 import { Button } from '@zchemacraft/components/uibutton';
 import { Spinner } from '@zchemacraft/components/uispinner';
@@ -15,6 +16,9 @@ import { toast } from 'sonner';
 
 export default function ApiKeys() {
   const [isAPIKeyModalOpen, setAPIKeyModalOpen] = useState(false);
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [apiKeyToDelete, setApiKeyToDelete] = useState<string>('');
+
   const { data, isLoading } = useGetAPIkeys();
 
   const { mutateAsync, isPending } = useDeleteApiKeyMutation();
@@ -24,7 +28,9 @@ export default function ApiKeys() {
     try {
       const data = await mutateAsync(id);
       queryClient.invalidateQueries({ queryKey: ['api-keys'] });
+
       toast.success(data?.message || 'API Key deleted successfully');
+      setConfirmationModalOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +45,15 @@ export default function ApiKeys() {
       </nav>
 
       {!isLoading && data ? (
-        <APIKeysTable columns={getColumns(handleApiKeyDelete, isPending)} data={data} />
+        <APIKeysTable
+          columns={getColumns(
+            handleApiKeyDelete,
+            isPending,
+            setApiKeyToDelete,
+            setConfirmationModalOpen,
+          )}
+          data={data}
+        />
       ) : (
         <div className="flex justify-center items-center h-32">
           <Spinner />
@@ -47,11 +61,25 @@ export default function ApiKeys() {
       )}
 
       <APIKeyModal open={isAPIKeyModalOpen} setOpen={setAPIKeyModalOpen} />
+      <ConfirmationModal
+        title="Delete API Key"
+        description="Are you sure you want to delete this API key? This action cannot be undone."
+        open={isConfirmationModalOpen}
+        setOpen={setConfirmationModalOpen}
+        handleConfirm={() => handleApiKeyDelete(apiKeyToDelete)}
+        confirmButtonText={isPending ? 'Deleting...' : 'Delete'}
+        disabled={isPending}
+      />
     </main>
   );
 }
 
-function getColumns(handleApiKeyDelete: (id: string) => void, isPending: boolean) {
+function getColumns(
+  handleApiKeyDelete: (id: string) => void,
+  isPending: boolean,
+  setApiKeyToDelete: (id: string) => void,
+  setIsConfirmationModalOpen: (open: boolean) => void,
+) {
   const columns: ColumnDef<APIKey>[] = [
     {
       accessorKey: 'name',
@@ -75,7 +103,10 @@ function getColumns(handleApiKeyDelete: (id: string) => void, isPending: boolean
           <Button
             variant="destructive"
             size="sm"
-            onClick={() => handleApiKeyDelete(row.original.id)}
+            onClick={() => {
+              setApiKeyToDelete(row.original.id);
+              setIsConfirmationModalOpen(true);
+            }}
             disabled={isPending}
           >
             {isPending ? <Spinner /> : <Trash2Icon className="h-4 w-4" />}

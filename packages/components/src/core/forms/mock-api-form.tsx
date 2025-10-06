@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@zchemacraft/components/ui/button';
 import { DialogClose, DialogFooter } from '@zchemacraft/components/ui/dialog';
 import {
@@ -17,11 +18,10 @@ import { useCreateMockAPIMutation } from '@zchemacraft/hooks/mutations';
 import { mockAPISchema, MockAPISchemaType } from '@zchemacraft/zod-schemas/mock-api';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { Tabs, TabsList, TabsTrigger } from '../../ui/tabs';
 import { Spinner } from '../../ui/spinner';
-import { useQueryClient } from '@tanstack/react-query';
+import { Tabs, TabsList, TabsTrigger } from '../../ui/tabs';
 
-export function MockAPIForm() {
+export function MockAPIForm({ setIsOpen }: { setIsOpen: (open: boolean) => void }) {
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useCreateMockAPIMutation();
 
@@ -37,9 +37,11 @@ export function MockAPIForm() {
   async function onSubmit(values: MockAPISchemaType) {
     try {
       const data = await mutateAsync(values);
-      form.reset();
       queryClient.invalidateQueries({ queryKey: ['mock-apis'] });
+
+      form.reset();
       toast.success(data?.message || 'Mock API created successfully');
+      setIsOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -97,11 +99,8 @@ export function MockAPIForm() {
                 <FormControl>
                   <Textarea
                     placeholder={`{
-    "name": {
-      "type": "string",
-      "minLength": 1
-    }
-  },`}
+  "name": { "type": "string", "minLength": 1 },
+}`}
                     {...field}
                   />
                 </FormControl>

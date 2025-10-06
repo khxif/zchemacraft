@@ -22,7 +22,7 @@ export function MockAPISlider({ open, setOpen }: MockAPISliderProps) {
           <SheetDescription>Craft your schemas into a mock API in seconds.</SheetDescription>
         </div>
 
-        <MockAPIForm />
+        <MockAPIForm setIsOpen={setOpen} />
       </SheetContent>
     </Sheet>
   );

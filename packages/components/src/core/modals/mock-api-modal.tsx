@@ -25,7 +25,8 @@ export function MockAPIModal({ open, setOpen }: MockAPIModalProps) {
           <DialogTitle>Create your own API.</DialogTitle>
           <DialogDescription>Craft your schemas into a mock API in seconds.</DialogDescription>
         </DialogHeader>
-        <MockAPIForm />
+
+        <MockAPIForm setIsOpen={setOpen} />
       </DialogContent>
     </Dialog>
   );

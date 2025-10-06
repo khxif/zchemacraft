@@ -20,15 +20,18 @@ import { User, type MockAPI } from '@zchemacraft/types';
 import { ExternalLinkIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { ConfirmationModal } from '@zchemacraft/components/core/modals/confirmation-modal';
 
 export default function MockAPI() {
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
   const user = useAuthStore(state => state.user);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isCreateAPIModalOpen, setIsCreateAPIModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const[apiToDelete, setApiToDelete] = useState<string >('');
 
   const { data, isLoading } = useGetMockAPIs();
-
   const { mutateAsync: deleteMockAPI, isPending } = useDeleteMockAPIMutation();
 
   const handleDelete = async (id: string) => {
@@ -38,6 +41,8 @@ export default function MockAPI() {
       toast.success(data?.message);
     } catch (error) {
       console.log(error);
+    }finally {
+      setIsConfirmModalOpen(false);
     }
   };
 
@@ -46,7 +51,7 @@ export default function MockAPI() {
       <nav className="flex items-center justify-between">
         <h1 className="text-xl font-medium md:text-2xl">Mock APIs</h1>
 
-        <Button onClick={() => setIsModalOpen(true)}>Create API</Button>
+        <Button onClick={() => setIsCreateAPIModalOpen(true)}>Create API</Button>
       </nav>
 
       {!isLoading ? (
@@ -102,7 +107,10 @@ export default function MockAPI() {
                   <Button
                     size="sm"
                     variant="destructive"
-                    onClick={() => handleDelete(api.id)}
+                    onClick={() => {
+                      setApiToDelete(api.id)
+                      setIsConfirmModalOpen(true)
+                    }}
                     disabled={isPending}
                   >
                     <Trash2Icon className="size-4" />
@@ -117,10 +125,18 @@ export default function MockAPI() {
       )}
 
       {isMobile ? (
-        <MockAPISlider open={isModalOpen} setOpen={setIsModalOpen} />
+        <MockAPISlider open={isCreateAPIModalOpen} setOpen={setIsCreateAPIModalOpen} />
       ) : (
-        <MockAPIModal open={isModalOpen} setOpen={setIsModalOpen} />
+        <MockAPIModal open={isCreateAPIModalOpen} setOpen={setIsCreateAPIModalOpen} />
       )}
+      <ConfirmationModal
+        open={isConfirmModalOpen}
+        setOpen={setIsConfirmModalOpen}
+        title="Delete API"
+        description="Are you sure you want to delete this API?"
+        handleConfirm={() => handleDelete(apiToDelete)}
+        confirmButtonText={isPending ? 'Deleting...' : 'Delete'}
+      />
     </main>
   );
 }
