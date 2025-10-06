@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { MockAPISlider } from '@zchemacraft/components/core/mobile-sliders/mock-api-slider';
+import { ConfirmationModal } from '@zchemacraft/components/core/modals/confirmation-modal';
 import { MockAPIModal } from '@zchemacraft/components/core/modals/mock-api-modal';
 import {
   Accordion,
@@ -9,6 +10,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@zchemacraft/components/ui/accordion';
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@zchemacraft/components/ui/empty';
 import { Table, TableBody, TableCell, TableRow } from '@zchemacraft/components/ui/table';
 import { Button } from '@zchemacraft/components/uibutton';
 import { Spinner } from '@zchemacraft/components/uispinner';
@@ -17,10 +26,9 @@ import { useGetMockAPIs } from '@zchemacraft/hooks/queries';
 import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
 import { useAuthStore } from '@zchemacraft/stores/auth-store';
 import { User, type MockAPI } from '@zchemacraft/types';
-import { ExternalLinkIcon, Trash2Icon } from 'lucide-react';
+import { ExternalLinkIcon, FolderXIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { ConfirmationModal } from '@zchemacraft/components/core/modals/confirmation-modal';
 
 export default function MockAPI() {
   const isMobile = useIsMobile();
@@ -126,9 +134,20 @@ export default function MockAPI() {
       )}
 
       {!isLoading && !data?.length ? (
-        <div className="text-center pt-10">
-          <h4>No Mock APIs found, create one now!</h4>
-        </div>
+        <Empty className="mt-10">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <FolderXIcon className="size-4 md:size-5" />
+            </EmptyMedia>
+            <EmptyTitle>No APIs Yet</EmptyTitle>
+            <EmptyDescription>
+              You haven&apos;t created any APIs yet. Get started by creating your first API.
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Button onClick={() => setIsCreateAPIModalOpen(true)}>Create API</Button>
+          </EmptyContent>
+        </Empty>
       ) : null}
 
       {isMobile ? (
