@@ -1,7 +1,5 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@zchemacraft/components/ui/button';
 import { DialogClose, DialogFooter } from '@zchemacraft/components/ui/dialog';
 import {
@@ -14,38 +12,18 @@ import {
 } from '@zchemacraft/components/ui/form';
 import { Input } from '@zchemacraft/components/ui/input';
 import { Textarea } from '@zchemacraft/components/ui/textarea';
-import { useCreateMockAPIMutation } from '@zchemacraft/hooks/mutations';
-import { mockAPISchema, MockAPISchemaType } from '@zchemacraft/zod-schemas/mock-api';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { MockAPISchemaType } from '@zchemacraft/zod-schemas/mock-api';
+import { UseFormReturn } from 'react-hook-form';
 import { Spinner } from '../../ui/spinner';
 import { Tabs, TabsList, TabsTrigger } from '../../ui/tabs';
 
-export function MockAPIForm({ setIsOpen }: { setIsOpen: (open: boolean) => void }) {
-  const queryClient = useQueryClient();
-  const { mutateAsync, isPending } = useCreateMockAPIMutation();
+interface MockAPIFormProps {
+  form: UseFormReturn<MockAPISchemaType>;
+  onSubmit: (values: MockAPISchemaType) => Promise<void>;
+  isPending: boolean;
+}
 
-  const form = useForm<MockAPISchemaType>({
-    resolver: zodResolver(mockAPISchema),
-    defaultValues: {
-      schema: '',
-      path: '',
-      schemaType: 'json',
-    },
-  });
-
-  async function onSubmit(values: MockAPISchemaType) {
-    try {
-      const data = await mutateAsync(values);
-      queryClient.invalidateQueries({ queryKey: ['mock-apis'] });
-
-      form.reset();
-      toast.success(data?.message || 'Mock API created successfully');
-      setIsOpen(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+export function MockAPIForm({ form, onSubmit, isPending }: MockAPIFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

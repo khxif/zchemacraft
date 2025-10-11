@@ -1,26 +1,19 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@zchemacraft/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@zchemacraft/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@zchemacraft/components/ui/form';
-import { Input } from '@zchemacraft/components/ui/input';
-import { Spinner } from '@zchemacraft/components/ui/spinner';
+import { Sheet, SheetContent, SheetTitle } from '@zchemacraft/components/ui/sheet';
+import { useSeedMockData } from '@zchemacraft/hooks/mutations';
+import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
+import { uriSchema, UriSchemaType } from '@zchemacraft/zod-schemas/schema';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { useSeedMockData } from '@zchemacraft/hooks/mutations';
-import { uriSchema, UriSchemaType } from '@zchemacraft/zod-schemas/schema';
+import { UriForm } from '../forms/uri-forms';
 
 interface UriModalProps {
   isOpen: boolean;
@@ -30,6 +23,7 @@ interface UriModalProps {
 }
 
 export function UriModal({ isOpen, setIsOpen, schema, type = 'Mongoose' }: UriModalProps) {
+  const isMobile = useIsMobile();
   const { mutateAsync, isPending } = useSeedMockData();
 
   const form = useForm<UriSchemaType>({
@@ -49,35 +43,26 @@ export function UriModal({ isOpen, setIsOpen, schema, type = 'Mongoose' }: UriMo
       setIsOpen(false);
     }
   }
-  return (
+  return !isMobile ? (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="fixed top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2 w-full max-w-md">
         <DialogHeader>
           <DialogTitle>Enter the Database URI.</DialogTitle>
         </DialogHeader>
         <div>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="uri"
-                disabled={isPending}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder="DATABASE URI" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? <Spinner /> : 'Seed'}
-              </Button>
-            </form>
-          </Form>
+          <UriForm form={form} onSubmit={onSubmit} isPending={isPending} />
         </div>
       </DialogContent>
     </Dialog>
-  );
+  ) : (
+     <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetContent side="bottom" className="p-5 rounded-t-3xl">
+        <SheetTitle>Enter the Database URI.</SheetTitle>
+
+        <div>
+         <UriForm form={form} onSubmit={onSubmit} isPending={isPending} />
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
 }

@@ -19,7 +19,6 @@ import {
 } from '@zchemacraft/components/ui/snippet';
 import { Spinner } from '@zchemacraft/components/ui/spinner';
 import { useGenerateMockData } from '@zchemacraft/hooks/mutations';
-import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
 import { toJsObjectString, transformSchemaInput } from '@zchemacraft/shared/utils';
 import { schemaInputSchema, SchemaInputType } from '@zchemacraft/zod-schemas/schema';
 import { DownloadIcon } from 'lucide-react';
@@ -30,7 +29,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SiMongodb, SiPrisma } from 'react-icons/si';
 import Editor from 'react-simple-code-editor';
-import { MobileUriSlider } from './mobile-sliders/mobile-uri-slider';
 import { UriModal } from './modals/uri-modal';
 
 export const Snippets = () => {
@@ -39,7 +37,6 @@ export const Snippets = () => {
   const [isUriModalOpen, setIsUriModalOpen] = useState<boolean>(false);
 
   const { mutateAsync, isPending } = useGenerateMockData();
-  const isMobile = useIsMobile();
 
   const form = useForm<SchemaInputType>({
     resolver: zodResolver(schemaInputSchema),
@@ -185,29 +182,17 @@ export const Snippets = () => {
           />
         </div>
       </Snippet>
-      {isMobile ? (
-        <MobileUriSlider
-          type={tab}
-          isOpen={isUriModalOpen}
-          setIsOpen={setIsUriModalOpen}
-          schema={
-            tab === 'Mongoose'
-              ? transformSchemaInput(form.getValues('schema'))
-              : form.getValues('schema')
-          }
-        />
-      ) : (
-        <UriModal
-          type={tab}
-          isOpen={isUriModalOpen}
-          setIsOpen={setIsUriModalOpen}
-          schema={
-            tab === 'Mongoose'
-              ? transformSchemaInput(form.getValues('schema'))
-              : form.getValues('schema')
-          }
-        />
-      )}
+
+      <UriModal
+        type={tab}
+        isOpen={isUriModalOpen}
+        setIsOpen={setIsUriModalOpen}
+        schema={
+          tab === 'Mongoose'
+            ? transformSchemaInput(form.getValues('schema'))
+            : form.getValues('schema')
+        }
+      />
     </section>
   );
 };

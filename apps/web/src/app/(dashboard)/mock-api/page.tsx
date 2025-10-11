@@ -1,7 +1,6 @@
 'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
-import { MockAPISlider } from '@zchemacraft/components/core/mobile-sliders/mock-api-slider';
 import { ConfirmationModal } from '@zchemacraft/components/core/modals/confirmation-modal';
 import { MockAPIModal } from '@zchemacraft/components/core/modals/mock-api-modal';
 import {
@@ -23,7 +22,6 @@ import { Button } from '@zchemacraft/components/uibutton';
 import { Spinner } from '@zchemacraft/components/uispinner';
 import { useDeleteMockAPIMutation } from '@zchemacraft/hooks/mutations';
 import { useGetMockAPIs } from '@zchemacraft/hooks/queries';
-import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
 import { useAuthStore } from '@zchemacraft/stores/auth-store';
 import { User, type MockAPI } from '@zchemacraft/types';
 import { ExternalLinkIcon, FolderXIcon, Trash2Icon } from 'lucide-react';
@@ -31,7 +29,6 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 export default function MockAPI() {
-  const isMobile = useIsMobile();
   const queryClient = useQueryClient();
   const user = useAuthStore(state => state.user);
 
@@ -150,11 +147,7 @@ export default function MockAPI() {
         </Empty>
       ) : null}
 
-      {isMobile ? (
-        <MockAPISlider open={isCreateAPIModalOpen} setOpen={setIsCreateAPIModalOpen} />
-      ) : (
-        <MockAPIModal open={isCreateAPIModalOpen} setOpen={setIsCreateAPIModalOpen} />
-      )}
+      <MockAPIModal open={isCreateAPIModalOpen} setOpen={setIsCreateAPIModalOpen} />
       <ConfirmationModal
         open={isConfirmModalOpen}
         setOpen={setIsConfirmModalOpen}
