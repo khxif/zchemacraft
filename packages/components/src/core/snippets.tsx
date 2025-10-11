@@ -220,7 +220,9 @@ const tabs: Tab[] = [
   {
     label: 'Mongoose',
     icon: <SiMongodb className="w-4 h-4 mr-1.5 sm:mr-2 text-green-400" />,
-    code: `{
+    code: `//Change { type: Date, default: Date.now() } -> { type: Date, default: "now" }
+//Change { type: mongoose.Schema.Types.ObjectId } -> { type: ObjectId }
+{
   User: {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
