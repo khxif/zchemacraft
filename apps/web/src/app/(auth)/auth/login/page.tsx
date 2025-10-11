@@ -9,7 +9,7 @@ import {
 } from '@zchemacraft/components/ui/card';
 import { Button } from '@zchemacraft/components/uibutton';
 import { FcGoogle } from 'react-icons/fc';
-import { supabase } from '../../../supabase/client';
+import { supabase } from '../../../../supabase/client';
 
 export default function LoginPage() {
   async function signInWithGoogle() {

@@ -9,7 +9,7 @@ export function AuthProtected({ children }: { children: React.ReactNode }) {
   const user = useAuthStore(state => state.user);
 
   useLayoutEffect(() => {
-    if (!user) router.push('/login');
+    if (!user) router.push('/auth/login');
   }, [user, router]);
 
   return children;
