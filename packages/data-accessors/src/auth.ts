@@ -1,11 +1,11 @@
-import { apiClient } from '@zchemacraft/data-accessors/apiClient';
+import { apiClient, authClient } from '@zchemacraft/data-accessors/apiClient';
 
-export const googleSignIn = async ({ firebaseToken }: { firebaseToken: string }) => {
-  const { data } = await apiClient.post(
+export const googleSignIn = async ({ token }: { token: string }) => {
+  const { data } = await authClient.post(
     '/api/auth/login/google',
     {},
     {
-      headers: { Authorization: `Bearer ${firebaseToken}` },
+      headers: { Authorization: `Bearer ${token}` },
     },
   );
   return data;
