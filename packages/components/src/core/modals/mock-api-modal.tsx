@@ -18,6 +18,7 @@ import {
 } from '@zchemacraft/components/ui/sheet';
 import { useCreateMockAPIMutation } from '@zchemacraft/hooks/mutations';
 import { useIsMobile } from '@zchemacraft/hooks/use-mobile';
+import { transformSchemaInput } from '@zchemacraft/shared/utils';
 import { mockAPISchema, MockAPISchemaType } from '@zchemacraft/zod-schemas/mock-api';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -44,7 +45,11 @@ export function MockAPIModal({ open, setOpen }: MockAPIModalProps) {
 
   async function onSubmit(values: MockAPISchemaType) {
     try {
-      const data = await mutateAsync(values);
+      const data = await mutateAsync(
+        values.schemaType === 'mongoose'
+          ? { ...values, schema: transformSchemaInput(values.schema) }
+          : values,
+      );
       queryClient.invalidateQueries({ queryKey: ['mock-apis'] });
 
       form.reset();

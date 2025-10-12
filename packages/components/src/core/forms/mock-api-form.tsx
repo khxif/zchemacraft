@@ -24,6 +24,8 @@ interface MockAPIFormProps {
 }
 
 export function MockAPIForm({ form, onSubmit, isPending }: MockAPIFormProps) {
+  const [activeTab] = form.watch(['schemaType']);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -38,12 +40,8 @@ export function MockAPIForm({ form, onSubmit, isPending }: MockAPIFormProps) {
                   <Tabs onValueChange={field.onChange} value={field.value} className="w-full">
                     <TabsList>
                       <TabsTrigger value="json">JSON</TabsTrigger>
-                      <TabsTrigger value="mongoose" disabled>
-                        Mongoose
-                      </TabsTrigger>
-                      <TabsTrigger value="prisma" disabled>
-                        Coming Soon..
-                      </TabsTrigger>
+                      <TabsTrigger value="mongoose">Mongoose</TabsTrigger>
+                      <TabsTrigger value="prisma">Prisma</TabsTrigger>
                     </TabsList>
                   </Tabs>
                 </FormControl>
@@ -58,9 +56,9 @@ export function MockAPIForm({ form, onSubmit, isPending }: MockAPIFormProps) {
             disabled={isPending}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>API Endpoint</FormLabel>
+                <FormLabel>API Path</FormLabel>
                 <FormControl>
-                  <Input placeholder="/api/users" {...field} />
+                  <Input placeholder="/users" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,12 +73,7 @@ export function MockAPIForm({ form, onSubmit, isPending }: MockAPIFormProps) {
               <FormItem>
                 <FormLabel>Schema</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder={`{
-  "name": { "type": "string", "minLength": 1 },
-}`}
-                    {...field}
-                  />
+                  <Textarea placeholder={placeholders[activeTab]} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,10 +88,34 @@ export function MockAPIForm({ form, onSubmit, isPending }: MockAPIFormProps) {
             </Button>
           </DialogClose>
           <Button type="submit" disabled={isPending}>
-            {isPending ? <Spinner /> : 'Save changes'}
+            {isPending ? <Spinner /> : 'Create API'}
           </Button>
         </DialogFooter>
       </form>
     </Form>
   );
 }
+
+const placeholders = {
+  json: `{
+  "name": { "type": "string", "minLength": 1 },
+}`,
+  mongoose: `{
+  User: {
+    name: { type: String, required: true },
+    posts: [{ type: ObjectId, ref: 'Post' }],
+    createdAt: { type: Date, default: "now" }
+  },
+  Post: {
+    title: { type: String, required: true },
+    author: { type: ObjectId, ref: 'User' },
+  }
+}`,
+  prisma: `model User {
+  id        Int      @id @default(autoincrement())
+  name model User {
+  id     Int     @id @default(autoincrement())
+  name   String
+  email  String  @unique
+}`,
+};
