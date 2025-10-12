@@ -1,18 +1,33 @@
+'use client';
+
 import { APIDashboardLayout } from '@zchemacraft/layouts/api-dashboard/layout';
 import { AuthProtected } from '@zchemacraft/providers/auth-protected';
-import { type Metadata } from 'next/dist/lib/metadata/types/metadata-interface';
+import type { Route } from '@zchemacraft/types';
+import { GitPullRequestDraftIcon, KeyRoundIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
-export const metadata: Metadata = {
-  title: 'Mock APIs - Zchema Craft',
-  description:
-    'Manage your mock APIs. Create, view, and delete mock APIs to streamline your development process with Zchema Craft.',
-};
-
 export default function MockAPILayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  const routes: Route[] = [
+    {
+      label: 'Mock APIs',
+      icon: GitPullRequestDraftIcon,
+      href: '/mock-api',
+      active: pathname === '/mock-api',
+    },
+    {
+      label: 'API Keys',
+      icon: KeyRoundIcon,
+      href: '/api-keys',
+      active: pathname === '/api-keys',
+    },
+  ] as const;
+
   return (
     <AuthProtected>
-      <APIDashboardLayout>{children}</APIDashboardLayout>
+      <APIDashboardLayout routes={routes}>{children}</APIDashboardLayout>
     </AuthProtected>
   );
 }

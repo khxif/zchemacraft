@@ -1,3 +1,5 @@
+import { LucideIcon } from 'lucide-react';
+
 export interface User {
   id: string;
   name: string;
@@ -25,4 +27,11 @@ export interface APIKey {
   userId: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface Route {
+  label: string;
+  icon: LucideIcon;
+  href: string;
+  active: boolean;
 }
