@@ -2,10 +2,10 @@ import { BaseLayout } from '@zchemacraft/layouts/base-layout';
 import { GoogleAnalytics } from '@zchemacraft/providers/google-analytics';
 import { QueryProvider } from '@zchemacraft/providers/query-provider';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Toaster } from 'sonner';
 import { keywords } from '../lib/keywords';
 import './globals.css';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Zchema Craft - Craft your schemas into mock data.',

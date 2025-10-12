@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 declare global {
@@ -11,14 +11,12 @@ declare global {
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!pathname) return;
 
-    const url = pathname + searchParams.toString();
-    window.gtag?.('config', 'G-QERT5EKPR7', { page_path: url });
-  }, [pathname, searchParams]);
+    window.gtag?.('config', 'G-QERT5EKPR7', { page_path: pathname });
+  }, [pathname]);
 
   return null;
 }
