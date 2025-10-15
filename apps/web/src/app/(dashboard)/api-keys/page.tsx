@@ -96,6 +96,11 @@ function getColumns(
       cell: ({ row }) => <p>{new Date(row.original.createdAt).toLocaleString()}</p>,
     },
     {
+      accessorKey: 'updatedAt',
+      header: 'Updated At',
+      cell: ({ row }) => <p>{new Date(row.original.updatedAt).toLocaleString()}</p>,
+    },
+    {
       accessorKey: 'id',
       header: '',
       cell: ({ row }) => {
