@@ -3,17 +3,37 @@
 import { UserButton } from '@zchemacraft/components/coreuser-button';
 import { SidebarProvider, SidebarTrigger } from '@zchemacraft/components/ui/sidebar';
 import { useAuthStore } from '@zchemacraft/stores/auth-store';
-import { Route, User } from '@zchemacraft/types';
+import type { Route } from '@zchemacraft/types';
+import { User } from '@zchemacraft/types';
+import { GitPullRequestDraftIcon, KeyRoundIcon, RocketIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 import { APIDashboardSidebar } from './sidebar';
 
-export function APIDashboardLayout({
-  children,
-  routes,
-}: {
-  children: React.ReactNode;
-  routes: Route[];
-}) {
+export function APIDashboardLayout({ children }: { children: React.ReactNode }) {
   const user = useAuthStore(state => state.user);
+  const pathname = usePathname();
+
+  const routes: Route[] = [
+    {
+      label: 'Mock APIs',
+      icon: GitPullRequestDraftIcon,
+      href: '/mock-api',
+      active: pathname === '/mock-api',
+    },
+    {
+      label: 'API Keys',
+      icon: KeyRoundIcon,
+      href: '/api-keys',
+      active: pathname === '/api-keys',
+    },
+    {
+      label: 'Test APIs',
+      icon: RocketIcon,
+      href: '/api-client',
+      active: pathname === '/api-client',
+    },
+  ] as const;
 
   return (
     <SidebarProvider>
