@@ -3,6 +3,7 @@ import { createApiKey, deleteApiKey } from '@zchemacraft/data-accessors/api-keys
 import { googleSignIn } from '@zchemacraft/data-accessors/auth';
 import { createMockAPI, deleteMockAPI } from '@zchemacraft/data-accessors/mock-api';
 import { generateMockData, seedMockData } from '@zchemacraft/data-accessors/mock-data';
+import { visualizeSchema } from '@zchemacraft/data-accessors/schema-visualization';
 
 export function useGenerateMockData() {
   return useMutation({ mutationFn: generateMockData });
@@ -30,4 +31,8 @@ export const useCreateApiKeyMutation = () => {
 
 export const useDeleteApiKeyMutation = () => {
   return useMutation({ mutationFn: deleteApiKey });
+};
+
+export const useVisualizeSchemaMutation = () => {
+  return useMutation({ mutationFn: visualizeSchema });
 };
