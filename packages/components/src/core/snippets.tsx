@@ -20,8 +20,10 @@ import {
 import { Spinner } from '@zchemacraft/components/ui/spinner';
 import { useGenerateMockData } from '@zchemacraft/hooks/mutations';
 import { toJsObjectString, transformSchemaInput } from '@zchemacraft/shared/utils';
+import { useAuthStore } from '@zchemacraft/stores/auth-store';
 import { schemaInputSchema, SchemaInputType } from '@zchemacraft/zod-schemas/schema';
 import { DownloadIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import 'prism-themes/themes/prism-night-owl.css';
 import Prism, { type Grammar } from 'prismjs';
 import 'prismjs/components/prism-javascript';
@@ -29,9 +31,13 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SiMongodb, SiPrisma } from 'react-icons/si';
 import Editor from 'react-simple-code-editor';
+import { toast } from 'sonner';
 import { UriModal } from './modals/uri-modal';
 
 export const Snippets = () => {
+  const router = useRouter();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+
   const [tab, setTab] = useState<string>(tabs[0]?.label ?? 'Mongoose');
   const [mockData, setMockData] = useState<Record<string, unknown>[]>([]);
   const [isUriModalOpen, setIsUriModalOpen] = useState<boolean>(false);
@@ -47,6 +53,11 @@ export const Snippets = () => {
 
   async function onSubmit(values: SchemaInputType) {
     try {
+      if (!isAuthenticated) {
+        router.push('/auth/login');
+        return toast.info('Please log in to generate mock data.');
+      }
+
       const data = await mutateAsync({
         schema: tab === 'Mongoose' ? transformSchemaInput(values.schema) : values.schema,
         type: tab,

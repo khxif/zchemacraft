@@ -26,7 +26,7 @@ export default function AuthCallback() {
 
       const res = await mutateAsync({ token: data.session.access_token });
       authenticate(res.user, res.token);
-      router.push('/mock-api');
+      router.push('/');
     }
 
     handleAuth();
