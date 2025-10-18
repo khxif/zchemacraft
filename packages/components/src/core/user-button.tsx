@@ -20,7 +20,7 @@ export function UserButton({ user }: { user: User }) {
       <DropdownMenuTrigger>
         <Avatar className="size-10">
           <AvatarImage src={user?.profilePicture} />
-          <AvatarFallback>{user?.name[0]}</AvatarFallback>
+          <AvatarFallback>{user?.name}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-xs" align="end">
