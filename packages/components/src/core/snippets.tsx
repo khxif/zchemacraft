@@ -53,17 +53,11 @@ export const Snippets = () => {
 
   async function onSubmit(values: SchemaInputType) {
     try {
-      if (!isAuthenticated) {
-        router.push('/auth/login');
-        return toast.info('Please log in to generate mock data.');
-      }
-
       const data = await mutateAsync({
         schema: tab === 'Mongoose' ? transformSchemaInput(values.schema) : values.schema,
         type: tab,
       });
       setMockData(data?.mockData);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
