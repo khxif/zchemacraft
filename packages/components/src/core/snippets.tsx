@@ -215,7 +215,7 @@ interface Tab {
 const tabs: Tab[] = [
   {
     label: 'Mongoose',
-    icon: <SiMongodb className="w-4 h-4 mr-1.5 sm:mr-2 text-green-400" />,
+    icon: <SiMongodb className="w-4 h-4 md:mr-2 text-green-400" />,
     code: `//Change { type: Date, default: Date.now() } -> { type: Date, default: "now" }
 //Change { type: mongoose.Schema.Types.ObjectId } -> { type: ObjectId }
 {
@@ -235,11 +235,31 @@ const tabs: Tab[] = [
   },
   {
     label: 'Prisma',
-    icon: <SiPrisma className="w-4 h-4 mr-1.5 sm:mr-2 text-blue-500" />,
-    code: `model User {
+    icon: <SiPrisma className="w-4 h-4 md:mr-2 text-blue-500" />,
+    code: `model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Profile {
   id     Int     @id @default(autoincrement())
-  name   String
-  email  String  @unique
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  posts   Post[]
+  profile Profile?
 }`,
   },
   // {
