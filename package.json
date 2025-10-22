@@ -1,5 +1,5 @@
 {
-  "name": "schema-faker-frontend",
+  "name": "zchemacraft-frontend",
   "private": true,
   "scripts": {
     "build": "turbo run build",
