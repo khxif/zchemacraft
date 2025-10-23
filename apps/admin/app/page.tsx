@@ -1,7 +1,10 @@
 import React from 'react'
+import { Button } from '@zchemacraft/components/ui/button'
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <Button variant='default'>Hey</Button>
+    </div>
   )
 }
