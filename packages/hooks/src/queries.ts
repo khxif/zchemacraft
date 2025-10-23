@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getMockApiEndpoint } from '@zchemacraft/data-accessors/api-client';
 import { getApiKeys } from '@zchemacraft/data-accessors/api-keys';
 import { getMockAPIs } from '@zchemacraft/data-accessors/mock-api';
+import { getDashboardOverview } from '@zchemacraft/data-accessors/overview';
 import { ApiClientSchema } from '@zchemacraft/zod-schemas/api-client';
 
 export function useGetMockAPIs() {
@@ -19,3 +20,7 @@ export const useGetMockApiEndpoint = (params: ApiClientSchema) => {
     enabled: false,
   });
 };
+
+export function useGetDashboardOverview() {
+  return useQuery({ queryKey: ['overview'], queryFn: getDashboardOverview });
+}
