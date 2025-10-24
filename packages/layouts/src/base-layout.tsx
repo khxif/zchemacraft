@@ -3,7 +3,7 @@
 import { useBaseLayoutStore } from '@zchemacraft/stores/base-layout-store';
 import React from 'react';
 import { useInitApp } from '@zchemacraft/hooks/use-init-app';
-import { Spinner } from '@zchemacraft/components/uispinner';
+import { Spinner } from '@zchemacraft/components/ui/spinner';
 
 export function BaseLayout({ children }: { children: React.ReactNode }) {
   const isAppInitialized = useBaseLayoutStore(state => state.isAppInitialized);

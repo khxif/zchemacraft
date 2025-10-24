@@ -1,6 +1,6 @@
 'use client';
 
-import { UserButton } from '@zchemacraft/components/coreuser-button';
+import { UserButton } from '@zchemacraft/components/core/user-button';
 import { SidebarProvider, SidebarTrigger } from '@zchemacraft/components/ui/sidebar';
 import { useAuthStore } from '@zchemacraft/stores/auth-store';
 import type { Route } from '@zchemacraft/types';

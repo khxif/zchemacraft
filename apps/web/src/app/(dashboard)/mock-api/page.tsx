@@ -18,8 +18,8 @@ import {
   EmptyTitle,
 } from '@zchemacraft/components/ui/empty';
 import { Table, TableBody, TableCell, TableRow } from '@zchemacraft/components/ui/table';
-import { Button } from '@zchemacraft/components/uibutton';
-import { Spinner } from '@zchemacraft/components/uispinner';
+import { Button } from '@zchemacraft/components/ui/button';
+import { Spinner } from '@zchemacraft/components/ui/spinner';
 import { useDeleteMockAPIMutation } from '@zchemacraft/hooks/mutations';
 import { useGetMockAPIs } from '@zchemacraft/hooks/queries';
 import { useAuthStore } from '@zchemacraft/stores/auth-store';

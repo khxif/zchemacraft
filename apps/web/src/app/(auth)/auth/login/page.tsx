@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@zchemacraft/components/ui/card';
-import { Button } from '@zchemacraft/components/uibutton';
+import { Button } from '@zchemacraft/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import { supabase } from '../../../../supabase/client';
 

@@ -20,7 +20,7 @@ export default function Dashboard() {
   );
 }
 
-export const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'profilePicture',
     header: 'Profile Picture',
