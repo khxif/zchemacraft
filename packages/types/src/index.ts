@@ -8,6 +8,7 @@ export interface User {
   lastSignedIn: Date;
   role: 'admin' | 'user';
   authProviderId: string;
+  endpointsLeft: number;
 }
 
 export interface MockAPI {
