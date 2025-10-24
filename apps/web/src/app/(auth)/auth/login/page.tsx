@@ -14,13 +14,12 @@ import { supabase } from '../../../../supabase/client';
 export default function LoginPage() {
   async function signInWithGoogle() {
     try {
-      const { data } = await supabase.auth.signInWithOAuth({
+      await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

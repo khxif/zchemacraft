@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { adminLogin } from '@zchemacraft/data-accessors/admin-auth';
 import { createApiKey, deleteApiKey } from '@zchemacraft/data-accessors/api-keys';
 import { googleSignIn } from '@zchemacraft/data-accessors/auth';
 import { createMockAPI, deleteMockAPI } from '@zchemacraft/data-accessors/mock-api';
@@ -11,6 +12,10 @@ export function useGenerateMockData() {
 export function useSeedMockData() {
   return useMutation({ mutationFn: seedMockData });
 }
+
+export const useAdminLoginMutation = () => {
+  return useMutation({ mutationFn: adminLogin });
+};
 
 export function useGoogleSignInMutation() {
   return useMutation({ mutationFn: googleSignIn });
