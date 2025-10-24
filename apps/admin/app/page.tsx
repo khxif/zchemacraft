@@ -1,10 +1,6 @@
-import React from 'react'
-import { Button } from '@zchemacraft/components/ui/button'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return (
-    <div>
-      <Button variant='default'>Hey</Button>
-    </div>
-  )
+  redirect('/dashboard');
+  return <></>;
 }
