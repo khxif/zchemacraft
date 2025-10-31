@@ -15,11 +15,12 @@ import { LogOutIcon } from 'lucide-react';
 
 export function UserButton({ user }: { user: User }) {
   const clearAuth = useAuthStore(state => state.clearAuth);
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar className="size-10">
-          <AvatarImage src={user?.profilePicture} />
+          <AvatarImage src={user?.profilePicture ?? '/default-profile.png'} />
           <AvatarFallback>{user?.name}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

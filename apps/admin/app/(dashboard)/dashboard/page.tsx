@@ -10,13 +10,14 @@ import Image from 'next/image';
 
 export default function Dashboard() {
   const { data, isLoading } = useGetDashboardOverview();
-  console.log(data);
 
   return (
     <main className="px-4 flex flex-col gap-8 md:px-8">
-      <StatisticsCard title="Total Users" value={data?.totalUsers ?? '0'} />
+      <section>
+        <StatisticsCard title="Total Users" value={data?.totalUsers ?? '0'} />
+      </section>
 
-      {!isLoading ? <UsersTable columns={columns} data={data?.users ?? []} /> : <p>Loading...</p>}
+      <UsersTable columns={columns} data={data?.users ?? []} isLoading={isLoading} />
     </main>
   );
 }
@@ -57,7 +58,7 @@ const columns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => (
       <span className="text-primary font-medium space-x-2 flex">
-       <p> {new Date(row.original.lastSignedIn).toLocaleDateString()}</p>
+        <p> {new Date(row.original.lastSignedIn).toLocaleDateString()}</p>
         <p>{new Date(row.original.lastSignedIn).toLocaleTimeString()}</p>
       </span>
     ),
