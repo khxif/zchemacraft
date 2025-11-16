@@ -11,7 +11,7 @@ export function Header() {
     <header className="py-4 px-4 sm:px-8 md:px-16 bg-black w-full">
       <nav className="mx-auto flex items-center justify-between">
         <span className="flex space-x-2">
-          <h1 className="font-medium text-xl md:text-2xl">Zchemacraft.</h1>
+          <h1 className="font-medium text-xl md:text-2xl">ZchemaCraft.</h1>
           {/* <Badge className="bg-purple-900/50 text-xs px-2 text-purple-300 flex items-center rounded-full">
             V1
           </Badge> */}

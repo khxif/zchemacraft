@@ -29,7 +29,7 @@ export default function LoginPage() {
     <Card className="max-w-lg w-full">
       <CardHeader className="text-center">
         <CardTitle className="text-xl md:text-2xl">Welcome to Zchemacraft!</CardTitle>
-        <CardDescription>Login to use the Mock API.</CardDescription>
+        <CardDescription>Login to continue using our app.</CardDescription>
       </CardHeader>
       <CardContent>
         <Button className="w-full font-medium" onClick={signInWithGoogle}>
