@@ -106,13 +106,7 @@ export const Snippets = () => {
                 {tab === 'Mongoose' ? (
                   <Button
                     disabled={isPending || tab !== 'Mongoose'}
-                    onClick={() => {
-                      if (!isAuthenticated) {
-                        router.push('/auth/login');
-                        return toast.info('Please log in to generate mock data.');
-                      }
-                      setIsUriModalOpen(true);
-                    }}
+                    onClick={() => setIsUriModalOpen(true)}
                     type="button"
                     variant="outline"
                     size="sm"
